@@ -1,0 +1,74 @@
+﻿@*@page "/employeedetails/{id}"
+@page "/employeedetails"*@
+@*@inherits EmployeeDetailsBase*@
+
+@page "/editemployee/{id}"
+@inherits EditEmployeeBase
+
+
+<EditForm Model="@Employee">
+    <h3>Edit Employee</h3>
+    <hr />
+    <div class="form-group row">
+        <label for="firstName" class="col-sm-2 col-form-label">
+            First Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="firstName" class="form-control" placeholder="First Name"
+                       @bind-Value="Employee.FirstName"></InputText>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-2 col-form-label">
+            Last Name
+        </label>
+        <div class="col-sm-10">
+            <InputText id="lastName" class="form-control" placeholder="Last Name"
+                       @bind-Value="Employee.LastName" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">
+            Email
+        </label>
+        <div class="col-sm-10">
+            <InputText id="email" class="form-control" placeholder="Email"
+                       @bind-Value="Employee.Email" />
+        </div>
+    </div>
+</EditForm>
+
+@if (Employee == null || Employee.Department == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="row justify-content-center m-3">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1>@Employee.FirstName @Employee.LastName</h1>
+                </div>
+
+                <div class="card-body text-center">
+                    <img class="card-img-top" src="@Employee.PhotoPath" @onmousemove="@(e => Coordinates = $"X = {e.ClientX} Y = {e.ClientY}")"/>
+
+
+
+                    <h4>Employee ID: @Employee.EmployeeId</h4>
+                    <h4>Email: @Employee.Email</h4>
+                    <h4>Department: @Employee.DepartmentId</h4>
+                </div>
+
+                <button class="btn btn-primary" @onclick="@Button_Click">@ButtonText</button>
+
+                <div class="card-footer text-center @CssClass">
+                    <a href="/" class="btn btn-primary">Back</a>
+                    <a href="#" class="btn btn-info">Edit</a>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
